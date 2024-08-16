@@ -55,7 +55,7 @@ public class Main {
                 if (commands.length == 3) {
                     processingMv(commands[1], commands[2]);
                 } else if (commands.length == 4) {
-                    processingMv(commands[1], commands[2], commands[2]);
+                    processingMv(commands[1], commands[2], commands[3]);
                 }
                 printInvition(session);
             } else if (commands[0].equals("finfo")) {
