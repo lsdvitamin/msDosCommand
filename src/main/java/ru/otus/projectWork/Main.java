@@ -105,7 +105,7 @@ public class Main {
         File dir = new File(path);
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
-                String childFolderName = file.getParent() + "\\" + file.getName();
+                String childFolderName = String.valueOf(Paths.get(file.getParent(), file.getName()));
                 File searchFile = new File(childFolderName, fileName);
                 if (searchFile.isFile()) {
                     System.out.println("   " + searchFile.getPath());
@@ -161,15 +161,19 @@ public class Main {
             } catch (NullPointerException e) {
                 return session.getCurrentPath();
             }
-        }
-        if (!command.contains("\\") && !command.contains("/")) {
-            command = String.valueOf(Paths.get(String.valueOf(session.getCurrentPath()), command));
-            if (Files.exists(Path.of(command))) {
-                return Path.of(command);
-            } else {
-                System.out.println("Неизвестный параметр cd");
+        } else {
+            try {
+                command = String.valueOf(Paths.get(String.valueOf(session.getCurrentPath()), command));
+                if (Files.exists(Path.of(command))) {
+                    return Path.of(command);
+                } else {
+                    System.out.println("Неизвестный параметр cd");
+                }
+            } catch (InvalidPathException e) {
+                System.out.println("Неверный путь");
             }
         }
+
         return session.getCurrentPath();
     }
 
