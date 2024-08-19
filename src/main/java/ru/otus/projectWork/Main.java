@@ -126,7 +126,7 @@ public class Main {
     public static void detailedDescriptionFile(Session session, String fileName) {
         try {
             File file = new File(fileName);
-            Path path = Paths.get(fileName);
+            Path path = Paths.get(String.valueOf(session.getCurrentPath()), fileName);
             BasicFileAttributes attr;
             attr = Files.readAttributes(path, BasicFileAttributes.class);
             System.out.println("   Расположение: " + file.getParent());
